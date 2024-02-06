@@ -1,1 +1,1 @@
-# HealthBuddy-Kids
+# Smart-Nutrition-Assistant
