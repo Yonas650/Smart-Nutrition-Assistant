@@ -28,15 +28,15 @@ To get a local copy up and running follow these simple steps:
    ```bash
    git clone https://github.com/Yonas650/smart-nutrition-assistant.git
 2. **Navigate to the project directory:**
-cd smart-nutrition-assistant
+- `cd smart-nutrition-assistant`
 
 3. **Install NPM packages:**
-npm install
+- `npm install`
 
 4 **Set up the environment variables:Create a .env file in the root directory and update the following:**
-MONGODB_URI=YourMongoDBURI
-SESSION_SECRET=YourSessionSecret
-OPENAI_API_KEY=YourOpenAIKey
+- `MONGODB_URI=YourMongoDBURI`
+- `SESSION_SECRET=YourSessionSecret`
+- `OPENAI_API_KEY=YourOpenAIKey`
 
 5. **Run the application:**
 node app.mjs
