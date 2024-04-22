@@ -1,6 +1,6 @@
 # Smart Nutrition Assistant
 
-Smart Nutrition Assistant is an innovative application designed to help users track and analyze their dietary habits with the aid of advanced AI technology. This tool leverages the GPT-4 Vision API for food recognition and dietary advice, offering a user-friendly interface for meal tracking and nutritional insights.
+Smart Nutrition Assistant is a web application designed to help users track and analyze their dietary habits with the aid AI. This tool uses the GPT-4 Vision API for food recognition and dietary advice, offering a user-friendly interface for meal tracking and nutritional insights.
 
 ## Features
 
