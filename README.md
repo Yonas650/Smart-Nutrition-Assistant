@@ -11,13 +11,19 @@ Smart Nutrition Assistant is a web application designed to help users track and 
 
 ## Technologies Used
 
-- **Node.js:** A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **Express.js:** A web application framework for Node.js.
-- **MongoDB:** A NoSQL database used to store user and meal data.
-- **Mongoose:** An ODM (Object Data Modeling) library for MongoDB and Node.js.
-- **Bootstrap:** A front-end framework for developing responsive and mobile-first websites.
-- **Chart.js:** Simple yet flexible JavaScript charting for designers & developers.
-- **OpenAI API:** Utilizes GPT-4 Vision for analyzing meal photos and providing nutritional breakdowns.
+- **Node.js**: The runtime environment for running JavaScript on the server.
+- **Express.js**: The web application framework for Node.js.
+- **MongoDB**: The database used for storing user and meal data.
+- **Mongoose**: The ODM (Object Data Modeling) library for MongoDB and Node.js.
+- **Passport.js**: An authentication middleware for Node.js that simplifies the process of handling user authentication.
+- **Bootstrap**: A front-end framework used for designing responsive web pages.
+- **Chart.js**: A JavaScript library for creating interactive charts.
+- **OpenAI API**: Utilized for generating dietary advice and food identification from images.
+- **dotenv**: A module that loads environment variables from a `.env` file into `process.env`.
+- **bcrypt.js**: Used for hashing and checking passwords in the application.
+- **Express-session**: Middleware for handling sessions in Express applications.
+- **Multer**: Middleware for handling `multipart/form-data`, primarily used for uploading files.
+
 
 ## Installation
 
