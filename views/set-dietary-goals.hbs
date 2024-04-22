@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Dietary Goals - NutriSnap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <main class="container mt-4">
+        <h2 class="mb-3">Current Dietary Goals</h2>
+        <ul class="list-group mb-4">
+            <li class="list-group-item">Daily Calorie Intake: {{user.dietaryGoals.dailyCalorieIntake}}</li>
+            <li class="list-group-item">Carbs (%): {{user.dietaryGoals.macronutrients.carbs}}</li>
+            <li class="list-group-item">Proteins (%): {{user.dietaryGoals.macronutrients.proteins}}</li>
+            <li class="list-group-item">Fats (%): {{user.dietaryGoals.macronutrients.fats}}</li>
+            <li class="list-group-item">Dietary Preferences/Restrictions: {{user.dietaryGoals.dietaryPreferences}}</li>
+        </ul>
+
+        <h2 class="mb-3">Set Your Dietary Goals</h2>
+        <form action="/set-dietary-goals" method="post">
+            <div class="mb-3">
+                <label for="dailyCalorieIntake" class="form-label">Daily Calorie Intake:</label>
+                <input type="number" class="form-control" id="dailyCalorieIntake" name="dailyCalorieIntake" required value="{{user.dietaryGoals.dailyCalorieIntake}}">
+            </div>
+            <div class="mb-3">
+                <label for="carbs" class="form-label">Carbs (%):</label>
+                <input type="number" class="form-control" id="carbs" name="carbs" required value="{{user.dietaryGoals.macronutrients.carbs}}">
+            </div>
+            <div class="mb-3">
+                <label for="proteins" class="form-label">Proteins (%):</label>
+                <input type="number" class="form-control" id="proteins" name="proteins" required value="{{user.dietaryGoals.macronutrients.proteins}}">
+            </div>
+            <div class="mb-3">
+                <label for="fats" class="form-label">Fats (%):</label>
+                <input type="number" class="form-control" id="fats" name="fats" required value="{{user.dietaryGoals.macronutrients.fats}}">
+            </div>
+            <div class="mb-3">
+                <label for="dietaryPreferences" class="form-label">Dietary Preferences/Restrictions:</label>
+                <input type="text" class="form-control" id="dietaryPreferences" name="dietaryPreferences" value="{{user.dietaryGoals.dietaryPreferences}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Goals</button>
+        </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const carbs = parseInt(document.getElementById('carbs').value, 10);
+            const proteins = parseInt(document.getElementById('proteins').value, 10);
+            const fats = parseInt(document.getElementById('fats').value, 10);
+            const total = carbs + proteins + fats;
+            if(total !== 100) {
+                alert('The sum of macronutrients distribution must equal 100%.');
+                event.preventDefault(); //prevent form submission
+            }
+        });
+    </script>
+</body>
+</html>
