@@ -1,78 +1,62 @@
+// userActions.mjs
+
 import { User, Meal } from './db.mjs';
+import bcrypt from 'bcryptjs';
 
-/**
- *updates user account information.
- */
-export const updateUserAccount = async (userId, updates) => {
-  try {
-    const user = await User.findByIdAndUpdate(userId, updates, { new: true });
-    return user;
-  } catch (error) {
-    console.error('Error updating user account:', error);
-    throw error;
+export class UserController {
+  static async registerUser(email, password, username) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ email, password: hashedPassword, username });
+    await user.save();
   }
-};
 
-/**
- *sets or updates dietary goals for a user.
- */
-export const setDietaryGoals = async (userId, dietaryGoals) => {
-  try {
-    const user = await User.findByIdAndUpdate(userId, { dietaryGoals }, { new: true });
-    return user;
-  } catch (error) {
-    console.error('Error setting dietary goals:', error);
-    throw error;
-  }
-};
-
-/**
- *retrieves dietary goals for a user.
- */
-export const getDietaryGoals = async (userId) => {
-  try {
+  static async updateUserInfo(userId, { name, email, currentPassword, newPassword }) {
     const user = await User.findById(userId);
-    return user.dietaryGoals;
-  } catch (error) {
-    console.error('Error retrieving dietary goals:', error);
-    throw error;
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) throw new Error('Current password is incorrect');
+
+    if (name) user.username = name;
+    if (email) user.email = email;
+    if (newPassword) user.password = await bcrypt.hash(newPassword, 10);
+
+    await user.save();
   }
-};
+}
 
-/**
- *aggregates meal data for a user over a specified period to compute dietary trends.
- */
+export class MealController {
+  static async getMealsByUser(userId) {
+    return await Meal.find({ userId }).sort({ date: -1 });
+  }
 
-/**
- *retrieves dietary trends for a given user.
- * @param {mongoose.Types.ObjectId} userId -the user's ID.
- * @returns {Promise<Object>}an object containing trend data.
- */
-export async function getUserDietaryTrends(userId) {
-  const endDate = new Date();
-  const startDate = new Date(endDate);
-  startDate.setMonth(startDate.getMonth() - 1); //last month
+  static async uploadMeal(userId, base64Image, parsedData) {
+    const newMeal = new Meal({
+      userId,
+      date: new Date(),
+      items: parsedData.items,
+      totalCalories: parsedData.totalCalories,
+    });
+    await newMeal.save();
+  }
+}
 
-  try {
-    const meals = await Meal.find({
-      userId: userId,
-      date: { $gte: startDate, $lte: endDate }
-    }).sort('date');
-
-    //aggregate data for trends
-    const trends = meals.reduce((acc, meal) => {
-      const dateStr = meal.date.toISOString().split('T')[0];
-      if (!acc[dateStr]) {
-        acc[dateStr] = { totalCalories: 0, items: [] };
+export class DietaryGoalsController {
+  static async setDietaryGoals(userId, dailyCalorieIntake, macronutrients, dietaryPreferences) {
+    await User.updateOne({ _id: userId }, {
+      $set: {
+        'dietaryGoals.dailyCalorieIntake': dailyCalorieIntake,
+        'dietaryGoals.macronutrients': macronutrients,
+        'dietaryGoals.dietaryPreferences': dietaryPreferences,
       }
-      acc[dateStr].totalCalories += meal.totalCalories;
-      acc[dateStr].items.push(...meal.items);
-      return acc;
-    }, {});
+    });
+  }
+}
 
-    return trends;
-  } catch (error) {
-    console.error(`Error fetching dietary trends for user ${userId}: ${error.message}`);
-    throw error;
+export class DietaryTrendsController {
+  static async getDietaryTrends(userId, startDate) {
+    return await Meal.find({
+      userId,
+      date: { $gte: startDate }
+    }).sort({ date: 1 });
   }
 }
