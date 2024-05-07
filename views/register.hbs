@@ -1,45 +1,39 @@
+{{!this is views/register.hbs }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to NutriSnap!</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Register - NutriSnap</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <main class="container mt-4">
-        <section class="intro text-center mb-4">
-            <h1>Welcome to NutriSnap!</h1>
-            <p>Your smart nutrition assistant.</p>
-            <p>Start tracking your nutritional intake effortlessly with our advanced AI-powered analysis.</p>
-            {{#if user}}
-            <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
-            {{else}}
-            <a href="/register" class="btn btn-primary me-2">Get Started</a>
-            <a href="/login" class="btn btn-outline-primary">Sign In</a>
-            {{/if}}
-        </section>
 
-        <section class="features mb-4">
-            <h2>Features</h2>
-            <ul class="list-group">
-                <li class="list-group-item">📸 Upload meal photos for instant nutritional analysis.</li>
-                <li class="list-group-item">🥗 Track your dietary goals and monitor progress.</li>
-                <li class="list-group-item">📊 View detailed reports and insights about your eating habits.</li>
-                <li class="list-group-item">🔒 Secure and private - your data belongs to you.</li>
-            </ul>
-        </section>
+    <main>
+    <section id="registration-form">
+        <h2>Create Your Account</h2>
+        <form action="/register" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-        <section class="get-started text-center">
-            <h2>Ready to take control of your diet?</h2>
-            <p>Join NutriSnap today and transform the way you think about food.</p>
-            {{#if user}}
-            <a href="/dashboard" class="btn btn-primary">Explore Dashboard</a>
-            {{else}}
-            <a href="/register" class="btn btn-primary">Sign Up Now</a>
-            {{/if}}
-        </section>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </section>
+</main>
